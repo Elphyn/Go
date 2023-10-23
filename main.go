@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"reflect"
+	"strconv"
 	"strings"
 )
 
@@ -22,6 +22,12 @@ func main() {
 
 	splitInput := strings.Fields(input)
 	fmt.Println(splitInput)
-	fmt.Printf("Type of splitInput: %s\n", reflect.TypeOf(splitInput))
-	fmt.Printf("Type of splitInput[0]: %s\n", reflect.TypeOf(splitInput[0]))
+	//fmt.Printf("Type of splitInput: %s\n", reflect.TypeOf(splitInput))
+	//fmt.Printf("Type of splitInput[0]: %s\n", reflect.TypeOf(splitInput[0]))
+	a, _ := strconv.Atoi(splitInput[0])
+	b, _ := strconv.Atoi(splitInput[2])
+	if splitInput[1] == "+" {
+		result := a + b
+		fmt.Printf("Add method chosen: %d\n", result)
+	}
 }
