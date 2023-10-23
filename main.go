@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func main() {
+func userInput() {
 	reader := bufio.NewReader(os.Stdin)
 	//fmt.Println("Введите значение: ")
 	//inputString, _ := reader.ReadString('\n')
@@ -17,9 +17,9 @@ func main() {
 	//fmt.Println(inputInt)
 	// _ похоже для каких то ошибок, так как метод возвращает несколько аргументов
 	// надо разобраться как считывать несколько переменных с линии в терминале
+
 	fmt.Println("Введите значения: ")
 	input, _ := reader.ReadString('\n')
-
 	splitInput := strings.Fields(input)
 	fmt.Println(splitInput)
 	//fmt.Printf("Type of splitInput: %s\n", reflect.TypeOf(splitInput))
@@ -30,4 +30,8 @@ func main() {
 		result := a + b
 		fmt.Printf("Add method chosen: %d\n", result)
 	}
+}
+
+func main() {
+	userInput()
 }
