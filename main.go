@@ -8,30 +8,34 @@ import (
 	"strings"
 )
 
-func userInput() {
+func userInput() (a, b int, operator string) {
 	reader := bufio.NewReader(os.Stdin)
-	//fmt.Println("Введите значение: ")
-	//inputString, _ := reader.ReadString('\n')
-	//inputString = strings.TrimSpace(inputString)
-	//inputInt, _ := strconv.Atoi(inputString)
-	//fmt.Println(inputInt)
-	// _ похоже для каких то ошибок, так как метод возвращает несколько аргументов
-	// надо разобраться как считывать несколько переменных с линии в терминале
+	for {
+		fmt.Println("Введите значения: ")
+		input, _ := reader.ReadString('\n')
+		splitInput := strings.Fields(input)
+		fmt.Println(splitInput)
 
-	fmt.Println("Введите значения: ")
-	input, _ := reader.ReadString('\n')
-	splitInput := strings.Fields(input)
-	fmt.Println(splitInput)
-	//fmt.Printf("Type of splitInput: %s\n", reflect.TypeOf(splitInput))
-	//fmt.Printf("Type of splitInput[0]: %s\n", reflect.TypeOf(splitInput[0]))
-	a, _ := strconv.Atoi(splitInput[0])
-	b, _ := strconv.Atoi(splitInput[2])
-	if splitInput[1] == "+" {
-		result := a + b
-		fmt.Printf("Add method chosen: %d\n", result)
+		a, _ := strconv.Atoi(splitInput[0])
+		b, _ := strconv.Atoi(splitInput[2])
+		//if splitInput[1] == "+" {
+		//	result := a + b
+		//	fmt.Printf("Add method chosen: %d\n", result)
+		//}
+		if !(a >= 0 && a <= 10 && b >= 0 && b <= 10) {
+			fmt.Println("Error, input values must be in range from (0,10) including 0 and 10)")
+			continue
+		}
+		if len(splitInput) > 3 {
+			fmt.Println("Error, input values must be two numbers and one operator ()")
+			continue
+		}
+		break
 	}
+	return
 }
 
 func main() {
-	userInput()
+	a, b, operator := userInput()
+
 }
