@@ -8,6 +8,7 @@ import (
 	"strings"
 )
 
+// calculation part
 func Add(a, b int) int {
 	result := a + b
 	return result
@@ -24,7 +25,7 @@ func Div(a, b int) int {
 	if a == 0 || b == 0 {
 		fmt.Println("Error, division by 0 detected")
 	} else {
-		result := a * b
+		result := a / b
 		return result
 	}
 	return 0
@@ -34,19 +35,24 @@ func userInput() (first, second int, operator string) {
 	//add roman bool to return, and roman input, zero check
 	reader := bufio.NewReader(os.Stdin)
 	for {
+		//console input
 		fmt.Println("Введите значения: ")
 		input, _ := reader.ReadString('\n')
-		splitInput := strings.Fields(input)
-		fmt.Println(splitInput)
 
-		//debug here shows that for some reason a, b = 0 here, need fix
+		//cutting string to multiple parts
+		splitInput := strings.Fields(input)
+
+		//turning strings to numbers
 		a, _ := strconv.Atoi(splitInput[0])
 		b, _ := strconv.Atoi(splitInput[2])
-		c := splitInput[1]
+
+		//return values: numbers
 		first = a
 		second = b
-		operator = c
+		//return value: operator (+, -, /, *)
+		operator = splitInput[1]
 
+		//checking task's conditions
 		if !(a >= 0 && a <= 10 && b >= 0 && b <= 10) {
 			fmt.Println("Error, input values must be in range from (0,10) including 0 and 10)")
 			continue
@@ -63,17 +69,22 @@ func userInput() (first, second int, operator string) {
 }
 
 func main() {
-	a, b, operator := userInput()
-	fmt.Println(a)
-	fmt.Println(b)
-	fmt.Println(operator)
 
-	//switch operator {
-	//case "+":
-	//	fmt.Printf("Result: %d\n", Add(a, b))
-	//case "/":
-	//	fmt.Printf("Result: %d\n", Div(a, b))
-	//
-	//}
+	//main loop
+	for {
+		a, b, operator := userInput()
+
+		switch operator {
+		case "+":
+			fmt.Printf("Result: %d\n", Add(a, b))
+		case "-":
+			fmt.Printf("Result: %d\n", Sub(a, b))
+		case "/":
+			fmt.Printf("Result: %d\n", Div(a, b))
+		case "*":
+			fmt.Printf("Result: %d\n", Mul(a, b))
+		}
+
+	}
 
 }
