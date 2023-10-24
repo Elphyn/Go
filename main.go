@@ -118,6 +118,10 @@ func userInput() (first, second int, operator string, romanFlag bool) {
 
 		//cutting string to multiple parts
 		splitInput := strings.Fields(input)
+		if len(splitInput) != 3 {
+			fmt.Println("Error, incorrect format: input values must be two numbers and one operator (+, -, /, *)")
+			continue
+		}
 
 		if isValidRoman(splitInput[0]) || isValidRoman(splitInput[2]) {
 			romanFlag = true
@@ -147,7 +151,7 @@ func userInput() (first, second int, operator string, romanFlag bool) {
 				fmt.Println("Error, incorrect format: input values must be two numbers and one operator (+, -, /, *)")
 				continue
 			}
-			if len(splitInput) > 3 {
+			if len(splitInput) != 3 {
 				fmt.Println("Error, incorrect format: input values must be two numbers and one operator (+, -, /, *)")
 				continue
 			}
@@ -157,6 +161,7 @@ func userInput() (first, second int, operator string, romanFlag bool) {
 			}
 			break
 		} else {
+
 			//turning strings to numbers
 			a, exc_1 := strconv.Atoi(splitInput[0])
 			b, exc_2 := strconv.Atoi(splitInput[2])
@@ -181,7 +186,7 @@ func userInput() (first, second int, operator string, romanFlag bool) {
 				continue
 			}
 			//checking task's conditions
-			if (exc_1 != nil || exc_2 != nil) || len(splitInput) > 3 {
+			if (exc_1 != nil || exc_2 != nil) || len(splitInput) != 3 {
 				fmt.Println("Error, incorrect format: input values must be two numbers and one operator (+, -, /, *)")
 				continue
 			}
