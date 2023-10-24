@@ -106,10 +106,10 @@ func getRoman(number int) string {
 }
 
 // Handles User Input from console, checks conditions, returns 2 numbers and operator if conditions are met
-func userInput() (first, second int, operator string) {
-	//add roman bool to return, and roman input
+func userInput() (first, second int, operator string, romanFlag bool) {
 	reader := bufio.NewReader(os.Stdin)
 	for {
+		//romanFlag := false
 		//console input
 		fmt.Println("Enter values: ")
 		input, _ := reader.ReadString('\n')
@@ -117,27 +117,44 @@ func userInput() (first, second int, operator string) {
 		//cutting string to multiple parts
 		splitInput := strings.Fields(input)
 
-		//turning strings to numbers
-		a, _ := strconv.Atoi(splitInput[0])
-		b, _ := strconv.Atoi(splitInput[2])
+		if isValidRoman(splitInput[0]) || isValidRoman(splitInput[2]) {
+			romanFlag = true
+			if !(isValidRoman(splitInput[0]) && isValidRoman(splitInput[2])) {
+				fmt.Println("If you intend to use Roman, both values should be Roman")
+				continue
+			}
+			a := getIntFromRoman(splitInput[0])
+			b := getIntFromRoman(splitInput[0])
 
-		//return values: numbers
-		first = a
-		second = b
-		//return value: operator (+, -, /, *)
-		operator = splitInput[1]
+			//return values: numbers
+			first = a
+			second = b
+			//return value: operator (+, -, /, *)
+			operator = splitInput[1]
+			break
+		} else {
+			//turning strings to numbers
+			a, _ := strconv.Atoi(splitInput[0])
+			b, _ := strconv.Atoi(splitInput[2])
 
-		//checking task's conditions
-		if !(a >= 0 && a <= 10 && b >= 0 && b <= 10) {
-			fmt.Println("Error, input values must be in range from (0,10) including 0 and 10)")
-			continue
+			//return values: numbers
+			first = a
+			second = b
+			//return value: operator (+, -, /, *)
+			operator = splitInput[1]
+
+			//checking task's conditions
+			if !(a >= 0 && a <= 10 && b >= 0 && b <= 10) {
+				fmt.Println("Error, input values must be in range from (0,10) including 0 and 10)")
+				continue
+			}
+			//here exception triggers only if more than 3 arguments, but also user can type in number, operator, operator and so on, so condition need change
+			if len(splitInput) > 3 {
+				fmt.Println("Error, input values must be two numbers and one operator (+, -, /, *)")
+				continue
+			}
+			break
 		}
-		//here exception triggers only if more than 3 arguments, but also user can type in number, operator, operator and so on, so condition need change
-		if len(splitInput) > 3 {
-			fmt.Println("Error, input values must be two numbers and one operator (+, -, /, *)")
-			continue
-		}
-		break
 
 	}
 	return
@@ -146,26 +163,38 @@ func userInput() (first, second int, operator string) {
 func main() {
 
 	//main loop
-	//for {
-	//	a, b, operator := userInput()
-	//
-	//	switch operator {
-	//	case "+":
-	//		fmt.Printf("Result: %d\n", Add(a, b))
-	//	case "-":
-	//		fmt.Printf("Result: %d\n", Sub(a, b))
-	//	case "/":
-	//		fmt.Printf("Result: %d\n", Div(a, b))
-	//	case "*":
-	//		fmt.Printf("Result: %d\n", Mul(a, b))
-	//	}
-	//
-	//}
+	for {
+		a, b, operator, roman := userInput()
 
-	n := 5
-	fmt.Printf("%d in roman is: %s\n", n, getRoman(n))
-	fmt.Printf("%s in decemal is: %d\n", getRoman(n), getIntFromRoman(getRoman(n)))
-	fmt.Printf("%s is valid roman input?: %t", "XVIII", isValidRoman("XVIII"))
+		switch operator {
+		case "+":
+			if roman {
+				fmt.Printf("Result: %s\n", getRoman(Add(a, b)))
+			} else {
+				fmt.Printf("Result: %d\n", Add(a, b))
+			}
+		case "-":
+			if roman {
+				fmt.Printf("Result: %s\n", getRoman(Sub(a, b)))
+			} else {
+				fmt.Printf("Result: %d\n", Sub(a, b))
+			}
+		case "/":
+			if roman {
+				fmt.Printf("Result: %s\n", getRoman(Div(a, b)))
+			} else {
+				fmt.Printf("Result: %d\n", Div(a, b))
+			}
+		case "*":
+			if roman {
+				fmt.Printf("Result: %s\n", getRoman(Mul(a, b)))
+			} else {
+				fmt.Printf("Result: %d\n", Mul(a, b))
+			}
+		}
+
+	}
+
 }
 
 //Add roman numbers handling
