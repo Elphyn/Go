@@ -137,21 +137,39 @@ func userInput() (first, second int, operator string, romanFlag bool) {
 			}
 			a := getIntFromRoman(splitInput[0])
 			b := getIntFromRoman(splitInput[0])
-			if !(a >= 0 && a <= 10 && b >= 0 && b <= 10) {
-				fmt.Println("Error, input values must be in range from (0,10) including 0 and 10)")
-				continue
-			}
 
 			//return values: numbers
 			first = a
 			second = b
 			//return value: operator (+, -, /, *)
 			operator = splitInput[1]
+
+			possibleOperators := []string{"+", "-", "/", "*"}
+
+			found := false
+			for _, op := range possibleOperators {
+				if op == operator {
+					found = true
+					break
+				}
+			}
+			if !(found) {
+				fmt.Println("Error, incorrect format: input values must be two numbers and one operator (+, -, /, *)")
+				continue
+			}
+			if len(splitInput) > 3 {
+				fmt.Println("Error, incorrect format: input values must be two numbers and one operator (+, -, /, *)")
+				continue
+			}
+			if !(a >= 0 && a <= 10 && b >= 0 && b <= 10) {
+				fmt.Println("Error, input values must be in range from (0,10) including 0 and 10)")
+				continue
+			}
 			break
 		} else {
 			//turning strings to numbers
-			a, _ := strconv.Atoi(splitInput[0])
-			b, _ := strconv.Atoi(splitInput[2])
+			a, exc_1 := strconv.Atoi(splitInput[0])
+			b, exc_2 := strconv.Atoi(splitInput[2])
 
 			//return values: numbers
 			first = a
@@ -159,14 +177,26 @@ func userInput() (first, second int, operator string, romanFlag bool) {
 			//return value: operator (+, -, /, *)
 			operator = splitInput[1]
 
-			//checking task's conditions
-			if !(a >= 0 && a <= 10 && b >= 0 && b <= 10) {
-				fmt.Println("Error, input values must be in range from (0,10) including 0 and 10)")
+			possibleOperators := []string{"+", "-", "/", "*"}
+
+			found := false
+			for _, op := range possibleOperators {
+				if op == operator {
+					found = true
+					break
+				}
+			}
+			if !(found) {
+				fmt.Println("Error, incorrect format: input values must be two numbers and one operator (+, -, /, *)")
 				continue
 			}
-			//here exception triggers only if more than 3 arguments, but also user can type in number, operator, operator and so on, so condition need change
-			if len(splitInput) > 3 {
+			//checking task's conditions
+			if (exc_1 != nil || exc_2 != nil) || len(splitInput) > 3 {
 				fmt.Println("Error, incorrect format: input values must be two numbers and one operator (+, -, /, *)")
+				continue
+			}
+			if !(a >= 0 && a <= 10 && b >= 0 && b <= 10) {
+				fmt.Println("Error, input values must be in range from (0,10) including 0 and 10)")
 				continue
 			}
 			break
