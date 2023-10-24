@@ -31,6 +31,30 @@ func Div(a, b int) int {
 	return 0
 }
 
+func isValidRoman(roman string) bool {
+	romanNumerals := []string{
+		"",
+		"I",
+		"II",
+		"III",
+		"IV",
+		"V",
+		"VI",
+		"VII",
+		"VIII",
+		"IX",
+		"X",
+	}
+	found := false
+	for _, num := range romanNumerals {
+		if num == roman {
+			found = true
+			break
+		}
+	}
+	return found
+}
+
 func getIntFromRoman(roman string) int {
 	reversedRomanNumerals := map[string]int{
 		"I":     1,
@@ -139,10 +163,9 @@ func main() {
 	//}
 
 	n := 5
-	fmt.Printf("%d in roman is: %s", n, getRoman(n))
-	fmt.Println()
-	fmt.Printf("%s in decemal is: %d", getRoman(n), getIntFromRoman(getRoman(n)))
-
+	fmt.Printf("%d in roman is: %s\n", n, getRoman(n))
+	fmt.Printf("%s in decemal is: %d\n", getRoman(n), getIntFromRoman(getRoman(n)))
+	fmt.Printf("%s is valid roman input?: %t", "XVIII", isValidRoman("XVIII"))
 }
 
 //Add roman numbers handling
