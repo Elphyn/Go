@@ -40,8 +40,9 @@ func userInput() (a, b int, operator string) {
 		fmt.Println(splitInput)
 
 		//debug here shows that for some reason a, b = 0 here, need fix
-		a, _ := strconv.Atoi(splitInput[0])
+		a, debug := strconv.Atoi(splitInput[0])
 		b, _ := strconv.Atoi(splitInput[2])
+		fmt.Println("Error: ", debug)
 		//if splitInput[1] == "+" {
 		//	result := a + b
 		//	fmt.Printf("Add method chosen: %d\n", result)
@@ -64,11 +65,12 @@ func userInput() (a, b int, operator string) {
 func main() {
 	a, b, operator := userInput()
 	fmt.Println(a)
-	if operator == "/" {
-		fmt.Printf("Result: %d\n", Div(a, b))
-	}
-	if operator == "+" {
+	switch operator {
+	case "+":
 		fmt.Printf("Result: %d\n", Add(a, b))
+	case "/":
+		fmt.Printf("Result: %d\n", Div(a, b))
+
 	}
 
 }
