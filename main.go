@@ -31,12 +31,38 @@ func Div(a, b int) int {
 	return 0
 }
 
+func getRoman(number int) string {
+	romanNumerals := map[int]string{
+		1:  "I",
+		2:  "II",
+		3:  "III",
+		4:  "IV",
+		5:  "V",
+		6:  "VI",
+		7:  "VII",
+		8:  "VIII",
+		9:  "IX",
+		10: "X",
+		11: "XI",
+		12: "XII",
+		13: "XIII",
+		14: "XIV",
+		15: "XV",
+		16: "XVI",
+		17: "XVII",
+		18: "XVIII",
+	}
+	value := romanNumerals[number]
+	return value
+}
+
+// Handles User Input from console, checks conditions, returns 2 numbers and operator if conditions are met
 func userInput() (first, second int, operator string) {
-	//add roman bool to return, and roman input, zero check
+	//add roman bool to return, and roman input
 	reader := bufio.NewReader(os.Stdin)
 	for {
 		//console input
-		fmt.Println("Введите значения: ")
+		fmt.Println("Enter values: ")
 		input, _ := reader.ReadString('\n')
 
 		//cutting string to multiple parts
@@ -59,7 +85,7 @@ func userInput() (first, second int, operator string) {
 		}
 		//here exception triggers only if more than 3 arguments, but also user can type in number, operator, operator and so on, so condition need change
 		if len(splitInput) > 3 {
-			fmt.Println("Error, input values must be two numbers and one operator ()")
+			fmt.Println("Error, input values must be two numbers and one operator (+, -, /, *)")
 			continue
 		}
 		break
@@ -71,20 +97,25 @@ func userInput() (first, second int, operator string) {
 func main() {
 
 	//main loop
-	for {
-		a, b, operator := userInput()
-
-		switch operator {
-		case "+":
-			fmt.Printf("Result: %d\n", Add(a, b))
-		case "-":
-			fmt.Printf("Result: %d\n", Sub(a, b))
-		case "/":
-			fmt.Printf("Result: %d\n", Div(a, b))
-		case "*":
-			fmt.Printf("Result: %d\n", Mul(a, b))
-		}
-
-	}
+	//for {
+	//	a, b, operator := userInput()
+	//
+	//	switch operator {
+	//	case "+":
+	//		fmt.Printf("Result: %d\n", Add(a, b))
+	//	case "-":
+	//		fmt.Printf("Result: %d\n", Sub(a, b))
+	//	case "/":
+	//		fmt.Printf("Result: %d\n", Div(a, b))
+	//	case "*":
+	//		fmt.Printf("Result: %d\n", Mul(a, b))
+	//	}
+	//
+	//}
+	test := getRoman(18)
+	fmt.Printf("18 in roman is: %s", test)
 
 }
+
+//Add roman numbers handling
+//complete task's conditions, there's a lot of them
