@@ -30,7 +30,7 @@ func Div(a, b int) int {
 	return 0
 }
 
-func userInput() (a, b int, operator string) {
+func userInput() (first, second int, operator string) {
 	//add roman bool to return, and roman input, zero check
 	reader := bufio.NewReader(os.Stdin)
 	for {
@@ -40,13 +40,13 @@ func userInput() (a, b int, operator string) {
 		fmt.Println(splitInput)
 
 		//debug here shows that for some reason a, b = 0 here, need fix
-		a, debug := strconv.Atoi(splitInput[0])
+		a, _ := strconv.Atoi(splitInput[0])
 		b, _ := strconv.Atoi(splitInput[2])
-		fmt.Println("Error: ", debug)
-		//if splitInput[1] == "+" {
-		//	result := a + b
-		//	fmt.Printf("Add method chosen: %d\n", result)
-		//}
+		c := splitInput[1]
+		first = a
+		second = b
+		operator = c
+
 		if !(a >= 0 && a <= 10 && b >= 0 && b <= 10) {
 			fmt.Println("Error, input values must be in range from (0,10) including 0 and 10)")
 			continue
@@ -65,12 +65,15 @@ func userInput() (a, b int, operator string) {
 func main() {
 	a, b, operator := userInput()
 	fmt.Println(a)
-	switch operator {
-	case "+":
-		fmt.Printf("Result: %d\n", Add(a, b))
-	case "/":
-		fmt.Printf("Result: %d\n", Div(a, b))
+	fmt.Println(b)
+	fmt.Println(operator)
 
-	}
+	//switch operator {
+	//case "+":
+	//	fmt.Printf("Result: %d\n", Add(a, b))
+	//case "/":
+	//	fmt.Printf("Result: %d\n", Div(a, b))
+	//
+	//}
 
 }
