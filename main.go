@@ -90,31 +90,20 @@ func getIntFromRoman(roman string) int {
 	return value
 }
 
-func getRoman(number int) string {
-	romanNumerals := map[int]string{
-		1:  "I",
-		2:  "II",
-		3:  "III",
-		4:  "IV",
-		5:  "V",
-		6:  "VI",
-		7:  "VII",
-		8:  "VIII",
-		9:  "IX",
-		10: "X",
-		11: "XI",
-		12: "XII",
-		13: "XIII",
-		14: "XIV",
-		15: "XV",
-		16: "XVI",
-		17: "XVII",
-		18: "XVIII",
-		19: "XIX",
-		20: "XX",
+func getRoman(num int) string {
+
+	romanSymbols := []string{"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"}
+	romanValues := []int{1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1}
+
+	result := ""
+	for i, symbol := range romanSymbols {
+		for num >= romanValues[i] {
+			result += symbol
+			num -= romanValues[i]
+		}
 	}
-	value := romanNumerals[number]
-	return value
+
+	return result
 }
 
 // Handles User Input from console, checks conditions, returns 2 numbers and operator if conditions are met
