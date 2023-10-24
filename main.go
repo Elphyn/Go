@@ -8,7 +8,6 @@ import (
 	"strings"
 )
 
-// calculation part
 func Add(a, b int) int {
 	result := a + b
 	return result
@@ -33,17 +32,26 @@ func Div(a, b int) int {
 
 func isValidRoman(roman string) bool {
 	romanNumerals := []string{
-		"",
-		"I",
-		"II",
-		"III",
-		"IV",
-		"V",
-		"VI",
-		"VII",
-		"VIII",
-		"IX",
-		"X",
+		1:  "I",
+		2:  "II",
+		3:  "III",
+		4:  "IV",
+		5:  "V",
+		6:  "VI",
+		7:  "VII",
+		8:  "VIII",
+		9:  "IX",
+		10: "X",
+		11: "XI",
+		12: "XII",
+		13: "XIII",
+		14: "XIV",
+		15: "XV",
+		16: "XVI",
+		17: "XVII",
+		18: "XVIII",
+		19: "XIX",
+		20: "XX",
 	}
 	found := false
 	for _, num := range romanNumerals {
@@ -75,6 +83,8 @@ func getIntFromRoman(roman string) int {
 		"XVI":   16,
 		"XVII":  17,
 		"XVIII": 18,
+		"XIX":   19,
+		"XX":    20,
 	}
 	value, _ := reversedRomanNumerals[roman]
 	return value
@@ -100,6 +110,8 @@ func getRoman(number int) string {
 		16: "XVI",
 		17: "XVII",
 		18: "XVIII",
+		19: "XIX",
+		20: "XX",
 	}
 	value := romanNumerals[number]
 	return value
@@ -125,6 +137,10 @@ func userInput() (first, second int, operator string, romanFlag bool) {
 			}
 			a := getIntFromRoman(splitInput[0])
 			b := getIntFromRoman(splitInput[0])
+			if !(a >= 0 && a <= 10 && b >= 0 && b <= 10) {
+				fmt.Println("Error, input values must be in range from (0,10) including 0 and 10)")
+				continue
+			}
 
 			//return values: numbers
 			first = a
@@ -150,7 +166,7 @@ func userInput() (first, second int, operator string, romanFlag bool) {
 			}
 			//here exception triggers only if more than 3 arguments, but also user can type in number, operator, operator and so on, so condition need change
 			if len(splitInput) > 3 {
-				fmt.Println("Error, input values must be two numbers and one operator (+, -, /, *)")
+				fmt.Println("Error, incorrect format: input values must be two numbers and one operator (+, -, /, *)")
 				continue
 			}
 			break
@@ -175,7 +191,13 @@ func main() {
 			}
 		case "-":
 			if roman {
-				fmt.Printf("Result: %s\n", getRoman(Sub(a, b)))
+				result := Sub(a, b)
+				if result < 1 {
+					fmt.Println("Error, Result with Roman numbers could only be positive")
+				} else {
+					fmt.Printf("Result: %s\n", getRoman(result))
+				}
+
 			} else {
 				fmt.Printf("Result: %d\n", Sub(a, b))
 			}
@@ -196,6 +218,3 @@ func main() {
 	}
 
 }
-
-//Add roman numbers handling
-//complete task's conditions, there's a lot of them
