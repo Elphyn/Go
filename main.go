@@ -90,20 +90,21 @@ func getIntFromRoman(roman string) int {
 	return value
 }
 
-func getRoman(num int) string {
+func getRoman(number int) string {
 
-	romanSymbols := []string{"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"}
-	romanValues := []int{1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1}
+	roman := ""
+	// Define the values and corresponding symbols in parallel slices.
+	values := []int{1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1}
+	symbols := []string{"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"}
 
-	result := ""
-	for i, symbol := range romanSymbols {
-		for num >= romanValues[i] {
-			result += symbol
-			num -= romanValues[i]
+	for i := 0; i < len(values); i++ {
+		for number >= values[i] {
+			roman += symbols[i]
+			number -= values[i]
 		}
 	}
 
-	return result
+	return roman
 }
 
 // Handles User Input from console, checks conditions, returns 2 numbers and operator if conditions are met
@@ -125,7 +126,7 @@ func userInput() (first, second int, operator string, romanFlag bool) {
 				continue
 			}
 			a := getIntFromRoman(splitInput[0])
-			b := getIntFromRoman(splitInput[0])
+			b := getIntFromRoman(splitInput[2])
 
 			//return values: numbers
 			first = a
@@ -198,7 +199,9 @@ func userInput() (first, second int, operator string, romanFlag bool) {
 func main() {
 
 	//main loop
+
 	for {
+
 		a, b, operator, roman := userInput()
 
 		switch operator {
@@ -210,6 +213,7 @@ func main() {
 			}
 		case "-":
 			if roman {
+
 				result := Sub(a, b)
 				if result < 1 {
 					fmt.Println("Error, Result with Roman numbers could only be positive")
